@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <title>Is Vitalik a Billionaire?</title>
+    <style type="text/css">
+        body {
+            margin: 40px auto;
+            max-width: 650px;
+            line-height: 1.6;
+            font-size: 18px;
+            color: #444;
+            padding: 0 10px
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.2
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        Is Vitalik a Billionaire?
+    </h1>
+    <div id="answer">
+        <h2>Querying V's masternode...</h2>
+    </div>
+    <div>
+        <p>
+            Vitalik's address: <a
+                href="https://etherscan.io/address/0xab5801a7d398351b8be11c439e05c5b3259aec9b" target=”_blank”>
+                0xab5801a7d398351b8be11c439e05c5b3259aec9b</a>
+        </p>
+        <p>Built by <a href="https://twitter.com/nanexcool" target=”_blank”>@nanexcool</a> from a tweet by <a href="https://twitter.com/ameensol/status/1346614414460346368" target=”_blank”>@ameensol</a></p>
+    </div>
+    <script>
+        async function run() {
+            let cg = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+            let node = "https://web3.1inch.exchange/"
+            let v = "0xab5801a7d398351b8be11c439e05c5b3259aec9b"
+
+            let price = await fetch(cg)
+                .then(response => response.json())
+
+            price = price.ethereum.usd
+
+            let balance = await fetch(node, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "jsonrpc": "2.0",
+                    "method": "eth_getBalance",
+                    "params": [
+                        v,
+                        "latest"
+                    ],
+                    "id": 1
+                })
+            })
+                .then(response => response.json())
+
+            balance = parseInt(balance.result, 16) / 1e18
+
+            var formatter = new Intl.NumberFormat(undefined, {
+                style: 'currency',
+                currency: 'USD',
+            })
+
+            let total = price * balance
+            let formatted = formatter.format(total)
+            let text = total >= 1000000000 ? "<h2>YES!</h2>" : "<h2>Not yet...</h2>"
+            text += `<p>1 ETH = ${formatter.format(price)} USD (<a href="https://www.coingecko.com/en/coins/ethereum" target=”_blank”>Coingecko</a>)</p><p>Vitalik's stash of ${new Intl.NumberFormat().format(balance)} ETH is worth ${formatted}</p>`
+            document.getElementById('answer').innerHTML = text
+        }
+        run()
+    </script>
+</body>
+
+</html>
