@@ -38,6 +38,7 @@
                 0xab5801a7d398351b8be11c439e05c5b3259aec9b</a>
         </p>
         <p>Built by <a href="https://twitter.com/nanexcool" target=”_blank”>@nanexcool</a> from a tweet by <a href="https://twitter.com/ameensol/status/1346614414460346368" target=”_blank”>@ameensol</a></p>
+        <p>Make this site prettier! <a href="https://github.com/nanexcool/chad-vitalik" target="_blank">Submit a PR</a></p>
     </div>
     <script>
         async function run() {
@@ -77,7 +78,7 @@
             let total = price * balance
             let formatted = formatter.format(total)
             let text = total >= 1000000000 ? "<h2>YES!</h2>" : "<h2>Not yet...</h2>"
-            text += `<p>1 ETH = ${formatter.format(price)} USD (<a href="https://www.coingecko.com/en/coins/ethereum" target=”_blank”>Coingecko</a>)</p><p>Vitalik's stash of ${new Intl.NumberFormat().format(balance)} ETH is worth ${formatted}</p>`
+            text += `<p>1 ETH = ${formatter.format(price)} USD (<a href="https://www.coingecko.com/en/coins/ethereum" target=”_blank”>Coingecko</a>)</p><p>Vitalik's stash of <strong>${new Intl.NumberFormat().format(balance)} ETH</strong> is worth <strong>${formatted}</strong></p>`
             document.getElementById('answer').innerHTML = text
         }
         run()
