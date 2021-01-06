@@ -1,88 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Responsive Layout -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png" />
+
+    <!-- Primary Meta Tags -->
     <title>Is Vitalik a Billionaire?</title>
-    <style type="text/css">
-        body {
-            margin: 40px auto;
-            max-width: 650px;
-            line-height: 1.6;
-            font-size: 18px;
-            color: #444;
-            padding: 0 10px
-        }
+    <meta name="title" content="Is Vitalik a Billionaire?" />
+    <meta
+      name="description"
+      content="Check and see if Ethereum co-founder Vitalik Buterin is a billionaire yet."
+    />
 
-        h1,
-        h2,
-        h3 {
-            line-height: 1.2
-        }
-    </style>
-</head>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://nanexcool.github.io/chad-vitalik/"
+    />
+    <meta property="og:title" content="Is Vitalik a Billionaire?" />
+    <meta
+      property="og:description"
+      content="Check and see if Ethereum co-founder Vitalik Buterin is a billionaire yet."
+    />
+    <meta
+      property="og:image"
+      content="https://nanexcool.github.io/chad-vitalik/meta.png"
+    />
 
-<body>
-    <h1>
-        Is Vitalik a Billionaire?
-    </h1>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://nanexcool.github.io/chad-vitalik/"
+    />
+    <meta property="twitter:title" content="Is Vitalik a Billionaire?" />
+    <meta
+      property="twitter:description"
+      content="Check and see if Ethereum co-founder Vitalik Buterin is a billionaire yet."
+    />
+    <meta
+      property="twitter:image"
+      content="https://nanexcool.github.io/chad-vitalik/meta.png"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+
+  <body>
+    <!-- Image of Vitalik -->
+    <img
+      src="https://preview.redd.it/na1bzs785dfz.png?auto=webp&s=1670ee06aba1f41e31fecb08b1ad6cb7705bd232"
+      alt="Vitalik Ethereum Lambo"
+    />
+
+    <!-- Header -->
+    <h1>Is <span>Vitalik</span> a Billionaire?</h1>
+
+    <!-- Queried Answer -->
     <div id="answer">
-        <h2>Querying V's masternode...</h2>
+      <h2>Querying V's masternode...</h2>
     </div>
-    <div>
-        <p>
-            Vitalik's address: <a
-                href="https://etherscan.io/address/0xab5801a7d398351b8be11c439e05c5b3259aec9b" target=”_blank”>
-                0xab5801a7d398351b8be11c439e05c5b3259aec9b</a>
-        </p>
-        <p>Built by <a href="https://twitter.com/nanexcool" target=”_blank”>@nanexcool</a> from a tweet by <a href="https://twitter.com/ameensol/status/1346614414460346368" target=”_blank”>@ameensol</a></p>
-        <p>Make this site prettier! <a href="https://github.com/nanexcool/chad-vitalik" target="_blank">Submit a PR</a></p>
+
+    <!-- General Details -->
+    <div id="details">
+      <p>
+        Vitalik's address:
+        <a
+          href="https://etherscan.io/address/0xab5801a7d398351b8be11c439e05c5b3259aec9b"
+          target="”_blank”"
+        >
+          0xab5801a7d398351b8be11c439e05c5b3259aec9b</a
+        >
+      </p>
+      <p>
+        Built by
+        <a href="https://twitter.com/nanexcool" target="”_blank”">@nanexcool</a>
+        from a tweet by
+        <a
+          href="https://twitter.com/ameensol/status/1346614414460346368"
+          target="”_blank”"
+          >@ameensol</a
+        >
+      </p>
+      <p>
+        Make this site prettier!
+        <a href="https://github.com/nanexcool/chad-vitalik" target="_blank"
+          >Submit a PR</a
+        >
+      </p>
     </div>
-    <script>
-        async function run() {
-            let cg = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-            let node = "https://web3.1inch.exchange/"
-            let v = "0xab5801a7d398351b8be11c439e05c5b3259aec9b"
 
-            let price = await fetch(cg)
-                .then(response => response.json())
-
-            price = price.ethereum.usd
-
-            let balance = await fetch(node, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "jsonrpc": "2.0",
-                    "method": "eth_getBalance",
-                    "params": [
-                        v,
-                        "latest"
-                    ],
-                    "id": 1
-                })
-            })
-                .then(response => response.json())
-
-            balance = parseInt(balance.result, 16) / 1e18
-
-            var formatter = new Intl.NumberFormat(undefined, {
-                style: 'currency',
-                currency: 'USD',
-            })
-
-            let total = price * balance
-            let formatted = formatter.format(total)
-            let text = total >= 1000000000 ? "<h2>YES!</h2>" : "<h2>Not yet...</h2>"
-            text += `<p>1 ETH = ${formatter.format(price)} USD (<a href="https://www.coingecko.com/en/coins/ethereum" target=”_blank”>Coingecko</a>)</p><p>Vitalik's stash of <strong>${new Intl.NumberFormat().format(balance)} ETH</strong> is worth <strong>${formatted}</strong></p>`
-            document.getElementById('answer').innerHTML = text
-        }
-        run()
-    </script>
-</body>
-
+    <!-- JS import -->
+    <script src="script.js"></script>
+  </body>
 </html>
