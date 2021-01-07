@@ -33,7 +33,7 @@ async function run() {
   let text =
     total >= 1000000000
       ? "<h2 id='yes'>YES!</h2>"
-      : "<h2 id='no'>Not yet...</h2>";
+      : "<h2 id='no'>NO!</h2>";
   text += `<p>1 ETH = ${formatter.format(
     price
   )} USD (<a href="https://www.coingecko.com/en/coins/ethereum" target=”_blank”>Coingecko</a>)</p><p>Vitalik's stash of <strong>${new Intl.NumberFormat().format(
